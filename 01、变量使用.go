@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 	"time"
 	"unsafe"
 )
@@ -95,6 +96,65 @@ func String_type() {
 	fmt.Println()
 
 }
+
+func to_string() {
+	//1、int 转换成 string
+	var num1 int = 20
+	s1 := strconv.Itoa(num1)
+	fmt.Printf("类型： %T ,值=%v \n", s1, s1) // 类型： string ,值=20
+	// 2、float 转 string
+	var num2 float64 = 20.113123
+	/* 参数 1：要转换的值
+	   参数 2：格式化类型
+	   参数 3: 保留的小数点 -1（不对小数点格式化）
+	   参数 4：格式化的类型
+	*/
+	s2 := strconv.FormatFloat(num2, 'f', 2, 64)
+	fmt.Printf("类型： %T ,值=%v \n", s2, s2) // 类型： string ,值=20.11
+
+	// 3、bool 转 string
+	s3 := strconv.FormatBool(true)
+	fmt.Printf("类型： %T ,值=%v \n", s3, s3) // 类型： string ,值=20.11
+	//4、int64 转 string
+	var num3 int64 = 20
+	s4 := strconv.FormatInt(num3, 10)    /* 第二个参数10为 进制 */
+	fmt.Printf("类型 %T ,值=%v \n", s4, s4) // 类型 string ,值=20
+
+}
+
+func string_to_init() {
+	num := 100
+	strNum := strconv.Itoa(num)
+	fmt.Printf("num: %T %v \n", num, num)
+	fmt.Printf("strNum: %T %v \n", strNum, strNum)
+
+	intNum, _ := strconv.Atoi(strNum)
+	fmt.Printf("intNum: %T %v \n", intNum, intNum)
+}
+
+func Array_list() {
+	// 定义一个长度为 3 元素类型为 int 的数组 a
+	var a [5]int
+	// 定义一个长度为 3 元素类型为 int 的数组 b 并赋值
+	var b [3]int
+
+	b[0] = 80
+	b[1] = 100
+	b[2] = 96
+	fmt.Println(a) // [0 0 0 0 0]
+	fmt.Println(b) // [80 100 96]
+	//普通遍历数组
+	var c = [...]string{"北京", "上海", "深圳"}
+	for i := 0; i < len(c); i++ {
+		fmt.Println(c[i])
+	}
+	//k,v遍历数组
+
+	var d = [...]string{"北京", "上海", "深圳"}
+	for index, value := range d {
+		fmt.Println(index, value)
+	}
+}
 func main() {
-	String_type()
+	Array_list()
 }
