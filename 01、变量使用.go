@@ -155,6 +155,84 @@ func Array_list() {
 		fmt.Println(index, value)
 	}
 }
+
+func Slice_list() {
+	var a []string
+	fmt.Println(a)        //[]
+	fmt.Println(a == nil) //true
+
+	var b = []int{}       //声明一个整型切片并初始化
+	fmt.Println(b)        //[]
+	fmt.Println(b == nil) //false
+
+	var c = []bool{false, true} //声明一个布尔切片并初始化
+	fmt.Println(c)              //[false true]
+	fmt.Println(c == nil)       //false
+
+	// append()添加元素和切片扩容
+	var numSlice []int
+	for i := 0; i < 10; i++ {
+		numSlice = append(numSlice, i)
+		fmt.Printf("%v len:%d cap:%d ptr:%p\n", numSlice, len(numSlice),
+			cap(numSlice), numSlice)
+	}
+}
+
+func map_list() {
+	userInfo := map[string]string{
+		"username": "root",
+		"password": "123456",
+		"name":     "heian_99",
+	}
+	fmt.Println(userInfo) // map[password:123456 username:IT 营小王子]
+	v, ok := userInfo["username"]
+	if ok {
+		fmt.Println(v) // zhangsan
+	} else {
+		fmt.Println("map中没有此元素")
+	}
+	delete(userInfo, "password") //将 password从 map 中删除
+	fmt.Println(userInfo)        // map[username:root]
+
+	scoreMap := map[string]int{
+		"zhangsan": 24,
+		"lisi":     26,
+		"wangwu":   24,
+	}
+	for k, v := range scoreMap {
+		fmt.Println(k, v)
+	}
+}
+
+// Pointer Go 语言中的指针操作非常简单，我们只需要记住两个符号：&（取地址）和 *（根据地址取值）
+func Pointer() {
+	var d = 10
+	fmt.Printf("%d \n", &d)  // &a 指针地址 (824633761976)
+	fmt.Printf("%d \n", *&d) // *&a 指针取值 (10)
+	fmt.Printf("%T \n", &d)  // %T 指针类型 (*int )
+
+	var a = 10
+	var b = &a
+	var c = *&a
+	fmt.Println(a) // 10 a的值
+	fmt.Println(b) // 0xc00001e060 a变量的内存地址
+	fmt.Println(c) // 10 *内存地址 取值
+}
+
+func makeNew() {
+	//var userinfo map[string]string
+	//userinfo["username"] = "张三"
+	//fmt.Println(userinfo)
+
+	a := make([]int, 3, 10) // 切片长度为 1，预留空间长度为 10
+	a = append(a, 1)
+	fmt.Printf("%v--%T \n", a, a) // [0 0 0]--[]int     值----切片本身
+
+	var b = new([]int)
+	//b = b.append(b,2)                  // 返回的是内存指针，所以不能直接 append
+	*b = append(*b, 3)          // 必须通过 * 指针取值，才能进行 append 添加
+	fmt.Printf("%v--%T", *b, b) // &[]--*[]string  内存的指针---内存指针
+}
 func main() {
-	Array_list()
+	makeNew()
 }
