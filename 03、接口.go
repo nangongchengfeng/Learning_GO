@@ -65,6 +65,17 @@ func show_data() {
 	slice := []int{1, 2, 34, 4}
 	show(slice) // 值:[1 2 34 4] 类型:[]int
 }
+
+func 接口断言() {
+	var x interface{}
+	x = "Hello golnag"
+	v, ok := x.(string)
+	if ok {
+		fmt.Printf("%T, %v", v, v)
+	} else {
+		fmt.Println("非字符串类型")
+	}
+}
 func main() {
-	show_data()
+	接口断言()
 }
