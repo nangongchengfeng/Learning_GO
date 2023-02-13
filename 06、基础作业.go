@@ -34,6 +34,35 @@ func chengfang_02() {
 	}
 }
 
+//03.golang实现冒泡排序
+func BubbleSort() {
+	list := []int{1, 9, 10, 8, 7}
+
+	n := len(list)
+
+	//在第一轮没有交换
+	didSwap := false
+
+	//进行第N-1轮迭代
+	for i := n - 1; i > 0; i-- {
+		//每次从第一轮开始比较，比较到第i位就不比较了，因为前一轮已经排好序
+		for j := 0; j < i; j++ {
+			if list[j] > list[j+1] {
+				list[j], list[j+1] = list[j+1], list[j]
+				didSwap = true
+			}
+
+		}
+		//如果在第一轮中没有交换，说明已经拍好了序，直接返回
+		if !didSwap {
+			return
+		}
+	}
+	fmt.Println(list)
+}
+
+//04.golang实现快排
+
 func main() {
-	chengfang_02()
+	BubbleSort()
 }
