@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 )
@@ -81,13 +82,56 @@ func (p *Person) setInfo(name string, age int8) {
 	p.age = age
 }
 
-func main() {
-	//struct_name()
-	p1 := Person{
-		name: "小王子",
-		age:  25,
+/*
+//struct_name()
+p1 := Person{
+name: "小王子",
+age:  25,
+}
+p1.printInfo() // 姓名:小王子 年龄:25
+p1.setInfo("张三", 20)
+p1.printInfo() // 姓名:张三 年龄:20
+*/
+//1）struct转Json字符串
+type Student struct {
+	ID     int
+	Gender string
+	name   string //私有属性不能被 json 包访问
+	Sno    string
+}
+
+func to_json() {
+	var s1 = Student{
+		ID:     1,
+		Gender: "男",
+		name:   "李四",
+		Sno:    "s0001",
 	}
-	p1.printInfo() // 姓名:小王子 年龄:25
-	p1.setInfo("张三", 20)
-	p1.printInfo() // 姓名:张三 年龄:20
+	fmt.Printf("%#v\n", s1) //
+	var s, _ = json.Marshal(s1)
+	jsonStr := string(s)
+	fmt.Println(jsonStr)
+}
+
+type Student1 struct {
+	ID     int
+	Gender string
+	Name   string
+	Sno    string
+}
+
+//2）Json字符串转struct
+func to_struct() {
+	var jsonStr = `{"ID":1,"Gender":"男","Name":"李四","Sno":"s0001"}`
+	var student Student1 //定义一个 Monster 实例
+	err := json.Unmarshal([]byte(jsonStr), &student)
+	if err != nil {
+		fmt.Printf("unmarshal err=%v\n", err)
+	}
+	fmt.Printf("反序列化后 student=%#v \n student.Name=%v \n", student, student.Name)
+}
+
+func main() {
+	to_json()
+	to_struct()
 }
