@@ -94,10 +94,10 @@ p1.printInfo() // 姓名:张三 年龄:20
 */
 //1）struct转Json字符串
 type Student struct {
-	ID     int
-	Gender string
-	name   string //私有属性不能被 json 包访问
-	Sno    string
+	ID     int    `json:"id"`
+	Gender string `json:"gender"`
+	name   string `json:"name"` //私有属性不能被 json 包访问
+	Sno    string `json:"sno"`
 }
 
 func to_json() {
@@ -114,15 +114,15 @@ func to_json() {
 }
 
 type Student1 struct {
-	ID     int
-	Gender string
+	ID     int    `json:"id"`
+	Gender string `json:"gender"`
 	Name   string
 	Sno    string
 }
 
 //2）Json字符串转struct
 func to_struct() {
-	var jsonStr = `{"ID":1,"Gender":"男","Name":"李四","Sno":"s0001"}`
+	var jsonStr = `{"id":1,"gender":"男","Name":"李四","Sno":"s0001"}`
 	var student Student1 //定义一个 Monster 实例
 	err := json.Unmarshal([]byte(jsonStr), &student)
 	if err != nil {
